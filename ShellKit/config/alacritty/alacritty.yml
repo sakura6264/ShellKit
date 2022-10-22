@@ -1,0 +1,68 @@
+live_config_reload: true
+tabspaces: 4
+window.opacity: 0.9
+shell:
+    program: .\nu.exe
+    #args:
+        #- -e
+        #- "cls"
+window:
+    dimensions:
+        columns: 160
+        lines: 40
+    position:
+        x: 100
+        y: 50
+    padding:
+        x: 5
+        y: 10
+    dynamic_padding: false
+    startup_mode: Windowed 
+    decorations: full
+scrolling:
+    history: 2000
+    multiplier: 20
+    faux_multiplier: 100
+    auto_scroll: true
+font:
+    normal:
+        family: Hack
+        style: Regular
+    bold:
+        family: Hack
+        style: Bold
+    italic:
+        family: Hack
+        style: Italic
+    bold_italic:
+        family: Hack
+        style: Bold Italic
+colors:
+  # Default colors
+  primary:
+    background: '#282c34'
+    foreground: '#abb2bf'
+
+  # Normal colors
+  normal:
+    # NOTE: Use '#131613' for the `black` color if you'd like to see
+    # black text on the background.
+    black:   '#282c34'
+    red:     '#e06c75'
+    green:   '#98c379'
+    yellow:  '#d19a66'
+    blue:    '#61afef'
+    magenta: '#c678dd'
+    cyan:    '#56b6c2'
+    white:   '#abb2bf'
+
+  # Bright colors
+  bright:
+    black:   '#5c6370'
+    red:     '#e06c75'
+    green:   '#98c379'
+    yellow:  '#d19a66'
+    blue:    '#61afef'
+    magenta: '#c678dd'
+    cyan:    '#56b6c2'
+    white:   '#ffffff'
