@@ -34,6 +34,7 @@ All the projects I have used are listed here:
 + [procs](https://github.com/dalance/procs)
 + [ripgrep](https://github.com/BurntSushi/ripgrep)
 + [sd](https://github.com/chmln/sd)
++ [sttr](https://github.com/abhimanyu003/sttr)
 + [tokei](https://github.com/XAMPPRocky/tokei)
 + [xh](https://github.com/ducaale/xh)
 + [zoxide](https://github.com/ajeetdsouza/zoxide)
