@@ -1,0 +1,121 @@
+[package]
+name = "bottom"
+version = "0.6.8"
+authors = ["Clement Tsang <cjhtsang@uwaterloo.ca>"]
+edition = "2018"
+repository = "https://github.com/ClementTsang/bottom"
+keywords = ["cross-platform", "monitoring", "cli", "top", "tui"]
+license = "MIT"
+categories = ["command-line-utilities", "visualization"]
+description = "A customizable cross-platform graphical process/system monitor for the terminal. Supports Linux, macOS, and Windows."
+documentation = "https://clementtsang.github.io/bottom/stable"
+readme = "README.md"
+default-run = "btm"
+build = "build.rs"
+
+[[bin]]
+name = "btm"
+path = "src/bin/main.rs"
+doc = false
+
+[lib]
+test = true
+doctest = false
+doc = false
+
+[profile.release]
+debug = 0
+lto = true
+# debug = true
+# lto = false
+opt-level = 3
+codegen-units = 1
+
+[features]
+default = ["fern", "log", "battery"]
+
+[dependencies]
+anyhow = "1.0.40"
+backtrace = "0.3.59"
+crossterm = "0.18.2"
+ctrlc = { version = "3.1.9", features = ["termination"] }
+clap = "2.33"
+cfg-if = "1.0"
+dirs = "3.0.2"
+futures = "0.3.14"
+futures-timer = "3.0.2"
+fxhash = "0.2.1"
+indexmap = "1.6.2"
+itertools = "0.10.0"
+once_cell = "1.5.2"
+regex = "1.5.4"
+serde = { version = "1.0.125", features = ["derive"] }
+# Sysinfo is still used in Linux for the ProcessStatus
+sysinfo = "0.23.0"
+thiserror = "1.0.24"
+time = { version = "0.3.5", features = ["formatting", "macros"] }
+toml = "0.5.8"
+tui = { version = "0.14.0", features = ["crossterm"], default-features = false }
+typed-builder = "0.9.0"
+unicode-segmentation = "1.7.1"
+unicode-width = "0.1"
+
+# For debugging only... disable on release builds with for now?  TODO: Redo this.
+fern = { version = "0.6.0", optional = true }
+log = { version = "0.4.14", optional = true }
+battery = { version = "0.7.8", optional = true }
+
+[target.'cfg(unix)'.dependencies]
+libc = "0.2.86"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+heim = { version = "0.1.0-rc.1", features = ["cpu", "disk", "net", "sensors"] }
+procfs = { version = "0.11.0", default-features = false }
+smol = "1.2.5"
+
+[target.'cfg(target_os = "macos")'.dependencies]
+heim = { version = "0.1.0-rc.1", features = ["cpu", "disk", "memory", "net"] }
+
+[target.'cfg(target_os = "windows")'.dependencies]
+heim = { version = "0.1.0-rc.1", features = ["cpu", "disk", "memory"] }
+winapi = "0.3.9"
+
+[dev-dependencies]
+assert_cmd = "1.0.3"
+predicates = "1.0.8"
+
+[build-dependencies]
+clap = "2.33"
+
+[package.metadata.deb]
+section = "utility"
+assets = [
+    ["target/release/btm", "usr/bin/", "755"],
+    ["LICENSE", "usr/share/doc/btm/", "644"],
+    [
+        "completion/btm.bash",
+        "usr/share/bash-completion/completions/btm",
+        "644",
+    ],
+    [
+        "completion/btm.fish",
+        "usr/share/fish/vendor_completions.d/btm.fish",
+        "644",
+    ],
+    ["completion/_btm", "usr/share/zsh/vendor-completions/", "644"],
+]
+extended-description = """\
+A customizable cross-platform graphical process/system monitor for the terminal. Supports Linux, macOS, and Windows.
+
+By default, bottom will look for a config file in ~/.config/bottom/bottom.toml.
+If one is not specified it will fall back to defaults.  If a config file does not
+exist at the specified or default location, a blank one will be created for the user.
+"""
+
+[package.metadata.wix]
+output = "bottom_x86_64_installer.msi"
+
+[dev-dependencies.cargo-husky]
+version = "1"
+default-features = false
+features = ["user-hooks"]
