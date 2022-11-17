@@ -1,1 +1,0 @@
-2022-10-21T15:47:13.451 helix_view::editor [ERROR] Failed to initialize the LSP for `source.rust` { cannot find binary path }
